@@ -1,9 +1,9 @@
-
 export function EmptyState() {
   return (
-    <div class="flex-1 flex flex-col items-center justify-center gap-4 text-muted">
-      <div class="text-7xl opacity-30">💬</div>
-      <div class="text-base opacity-50">Выберите чат для начала общения</div>
+    <div class="flex-1 flex flex-col items-center justify-center gap-3 chat-wallpaper text-white">
+      <div class="px-4 py-2 rounded-full bg-black/25 text-[15px]">
+        Выберите чат, чтобы начать переписку
+      </div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { type ChatPageVM } from '../../model/vm';
-import { Avatar } from '@/shared/ui/avatar';
+import { IconSearch, IconMore, IconPanel } from '@/shared/ui/icons';
 
 interface ChatHeaderProps {
   vm: ChatPageVM;
@@ -7,16 +7,25 @@ interface ChatHeaderProps {
 
 export function ChatHeader(props: ChatHeaderProps) {
   return (
-    <div class="flex items-center gap-3 px-4 py-2 bg-secondary border-b border-border min-h-14">
-      <Avatar emoji={props.vm.chatAvatar} online={props.vm.chatOnline} size={40} />
-      <div class="flex-1 min-w-0">
-        <div class="text-sm-plus font-semibold truncate">{props.vm.chatTitle}</div>
-        <div class="text-xs-plus text-muted">{props.vm.chatStatusText}</div>
+    <div class="flex items-center gap-3 px-4 bg-primary border-b border-border min-h-14 shrink-0">
+      <div class="flex-1 min-w-0 py-2">
+        <div class="text-[15px] font-medium truncate leading-tight">
+          {props.vm.chatTitle}
+        </div>
+        <div class="text-[13px] text-muted leading-tight mt-0.5">
+          {props.vm.chatStatusText}
+        </div>
       </div>
-      <div class="flex gap-1">
-        <button class="w-icon-btn h-icon-btn border-none bg-transparent text-muted text-lg cursor-pointer rounded-full flex items-center justify-center transition-colors duration-150 hover:bg-surface-hover" title="Поиск">🔍</button>
-        <button class="w-icon-btn h-icon-btn border-none bg-transparent text-muted text-lg cursor-pointer rounded-full flex items-center justify-center transition-colors duration-150 hover:bg-surface-hover" title="Телефон">📞</button>
-        <button class="w-icon-btn h-icon-btn border-none bg-transparent text-muted text-lg cursor-pointer rounded-full flex items-center justify-center transition-colors duration-150 hover:bg-surface-hover" title="Ещё">⋮</button>
+      <div class="flex items-center gap-0.5">
+        <button class="icon-btn" title="Поиск">
+          <IconSearch size={22} />
+        </button>
+        <button class="icon-btn" title="Панель">
+          <IconPanel size={22} />
+        </button>
+        <button class="icon-btn" title="Ещё">
+          <IconMore size={22} />
+        </button>
       </div>
     </div>
   );

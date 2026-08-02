@@ -79,7 +79,7 @@ export class SendMessageStore {
       };
 
       this.messageStore.addMessage(chatId, reply);
-      this.chatStore.updateLastMessage(chatId, replyText, time);
+      this.chatStore.updateLastMessage(chatId, replyText, time, false);
 
       if (this.chatStore.activeChatId !== chatId) {
         this.chatStore.incrementUnread(chatId);

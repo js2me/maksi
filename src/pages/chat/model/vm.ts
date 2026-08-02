@@ -3,6 +3,7 @@ import { globals } from '@/globals';
 import { SendMessageStore } from '@/features/send-message/model/store';
 import { type Message } from '@/entities/message/model/types';
 import { type ThemePreference } from '@/globals/stores/theme-manager';
+import { type ChatCategory } from '@/entities/chat/model/types';
 
 export class ChatPageVM {
   sendMessageStore: SendMessageStore;
@@ -27,20 +28,50 @@ export class ChatPageVM {
     return globals.stores.chat.activeChat?.avatar ?? '';
   }
 
+  get chatAvatarColor(): string {
+    return globals.stores.chat.activeChat?.avatarColor ?? '#64B5F6';
+  }
+
   get chatOnline(): boolean {
     return globals.stores.chat.activeChat?.online ?? false;
   }
 
-  get chatType(): 'private' | 'group' {
+  get chatType(): 'private' | 'group' | 'channel' {
     return globals.stores.chat.activeChat?.type ?? 'private';
   }
 
   get chatStatusText(): string {
     const chat = globals.stores.chat.activeChat;
     if (!chat) return '';
+    if (chat.messageCount != null) {
+      const n = chat.messageCount;
+      const mod10 = n % 10;
+      const mod100 = n % 100;
+      let word = 'сообщений';
+      if (mod10 === 1 && mod100 !== 11) word = 'сообщение';
+      else if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) word = 'сообщения';
+      return `${n} ${word}`;
+    }
+    if (chat.type === 'channel') return 'канал';
     if (chat.online) return 'в сети';
     if (chat.type === 'group') return 'участники';
     return 'был(а) недавно';
+  }
+
+  get category(): ChatCategory {
+    return globals.stores.chat.category;
+  }
+
+  get folders() {
+    return globals.stores.chat.folders;
+  }
+
+  get searchOpen(): boolean {
+    return globals.stores.chat.searchOpen;
+  }
+
+  setCategory(category: ChatCategory) {
+    globals.stores.chat.setCategory(category);
   }
 
   get filteredChats() {
@@ -82,6 +113,10 @@ export class ChatPageVM {
     globals.stores.chat.setSearchQuery(query);
   }
 
+  toggleSearch() {
+    globals.stores.chat.setSearchOpen(!globals.stores.chat.searchOpen);
+  }
+
   setInputText(text: string) {
     this.sendMessageStore.setText(text);
   }
@@ -103,10 +138,15 @@ export class ChatPageVM {
     }
   }
 
-  shouldShowSender(msg: Message, index: number): boolean {
-    if (msg.senderId === 'me') return false;
-    if (this.chatType !== 'group') return false;
+  shouldShowDate(msg: Message, index: number): boolean {
+    if (!msg.date) return false;
     if (index === 0) return true;
-    return this.messages[index - 1]?.senderId !== msg.senderId;
+    return this.messages[index - 1]?.date !== msg.date;
+  }
+
+  shouldShowSender(msg: Message, _index: number): boolean {
+    if (msg.senderId === 'me') return false;
+    if (msg.type === 'system') return false;
+    return true;
   }
 }

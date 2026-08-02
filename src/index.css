@@ -1,11 +1,8 @@
 @import "tailwindcss";
 
-/* ===== Custom variant for dark mode (class-based) ===== */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ===== Theme tokens → Tailwind ===== */
 @theme inline {
-  /* Colors */
   --color-primary: var(--bg-primary);
   --color-secondary: var(--bg-secondary);
   --color-surface-hover: var(--bg-hover);
@@ -24,58 +21,74 @@
   --color-avatar: var(--avatar-bg);
   --color-scrollbar: var(--scrollbar);
   --color-scrollbar-hover: var(--scrollbar-hover);
+  --color-folders: var(--bg-folders);
+  --color-folders-text: var(--folders-text);
+  --color-folders-active: var(--folders-active);
+  --color-action-btn: var(--action-btn);
+  --color-action-btn-hover: var(--action-btn-hover);
+  --color-chat-pattern: var(--chat-pattern);
+  --color-date-pill: var(--date-pill);
+  --color-checks: var(--checks);
 
-  /* Font sizes */
-  --font-size-2xs: 0.6875rem;   /* 11px */
-  --font-size-xs-plus: 0.8125rem; /* 13px */
-  --font-size-sm-plus: 0.9375rem; /* 15px */
+  --font-size-2xs: 0.6875rem;
+  --font-size-xs-plus: 0.8125rem;
+  --font-size-sm-plus: 0.9375rem;
 
-  /* Spacing */
-  --spacing-sidebar: 23.75rem;   /* 380px */
-  --spacing-px-msg: 3rem;        /* 48px */
-  --spacing-badge: 1.375rem;     /* 22px */
-  --spacing-icon-btn: 2.5rem;    /* 40px */
+  --spacing-folders: 4.75rem;
+  --spacing-sidebar: 26.25rem;
+  --spacing-px-msg: 1.25rem;
+  --spacing-badge: 1.25rem;
+  --spacing-icon-btn: 2.5rem;
 
-  /* Border radius */
-  --radius-pill: 1.25rem;        /* 20px */
+  --radius-pill: 1.25rem;
+  --radius-bubble: 0.875rem;
 
-  /* Max width */
-  --max-w-bubble: 65%;
+  --max-w-bubble: 28rem;
 }
 
-/* ===== Light theme (default) ===== */
 :root {
   --bg-primary: #ffffff;
-  --bg-secondary: #f0f2f5;
-  --bg-hover: #e8eaed;
-  --bg-active: #419fd9;
+  --bg-secondary: #ffffff;
+  --bg-hover: #f1f3f5;
+  --bg-active: #3390ec;
   --bg-message-own: #effdde;
   --bg-message-other: #ffffff;
-  --bg-input: #f0f2f5;
+  --bg-input: #ffffff;
+  --bg-folders: #293a4c;
+  --folders-text: #8b9bab;
+  --folders-active: #6ab3f3;
   --text-primary: #000000;
   --text-secondary: #707579;
-  --text-accent: #419fd9;
-  --accent: #419fd9;
-  --accent-hover: #3387c2;
-  --badge-bg: #419fd9;
-  --border: #e0e0e0;
-  --online: #4dcd5e;
+  --text-accent: #3390ec;
+  --accent: #3390ec;
+  --accent-hover: #2a7bc8;
+  --badge-bg: #3390ec;
+  --border: #dfe1e5;
+  --online: #0ac630;
   --scrollbar: #c4c4c4;
   --scrollbar-hover: #a0a0a0;
   --avatar-bg: #e1f0fa;
-  --message-bubble-shadow: 0 1px 1px rgba(0, 0, 0, 0.06);
+  --action-btn: #6e8b71;
+  --action-btn-hover: #5d7660;
+  --chat-bg: #c5d6b8;
+  --chat-pattern: rgba(0, 0, 0, 0.045);
+  --date-pill: rgba(0, 0, 0, 0.25);
+  --checks: #4fae4e;
+  --message-bubble-shadow: 0 1px 2px rgba(16, 35, 47, 0.12);
   color-scheme: light;
 }
 
-/* ===== Dark theme ===== */
 .dark {
   --bg-primary: #17212b;
-  --bg-secondary: #0e1621;
+  --bg-secondary: #17212b;
   --bg-hover: #202b36;
   --bg-active: #2b5278;
   --bg-message-own: #2b5278;
   --bg-message-other: #182533;
-  --bg-input: #242f3d;
+  --bg-input: #17212b;
+  --bg-folders: #0e1621;
+  --folders-text: #6c7e8e;
+  --folders-active: #6ab3f3;
   --text-primary: #f5f5f5;
   --text-secondary: #8b9bab;
   --text-accent: #6ab2f2;
@@ -87,30 +100,40 @@
   --scrollbar: #2b5278;
   --scrollbar-hover: #3d6b99;
   --avatar-bg: #202b36;
-  --message-bubble-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
+  --action-btn: #4a6741;
+  --action-btn-hover: #3d5636;
+  --chat-bg: #0e1621;
+  --chat-pattern: rgba(255, 255, 255, 0.03);
+  --date-pill: rgba(0, 0, 0, 0.35);
+  --checks: #6ab3f3;
+  --message-bubble-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
   color-scheme: dark;
 }
 
-/* ===== Base ===== */
 @layer base {
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', Arial, sans-serif;
     background: var(--bg-primary);
     color: var(--text-primary);
     font-size: 14px;
     line-height: 1.4;
-    transition: background 0.2s, color 0.2s;
+    margin: 0;
+    overflow: hidden;
   }
 
-  /* Scrollbar */
-  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 3px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-hover); }
 }
 
-/* ===== Only what Tailwind can't cover ===== */
 @layer components {
+  .chat-wallpaper {
+    background-color: var(--chat-bg);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cg fill='none' stroke='%23000000' stroke-opacity='0.06' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M28 36c6-8 18-8 24 0s6 18 0 24-18 6-24 0-8-16 0-24z'/%3E%3Cpath d='M92 22l8 14-8 4-8-4z'/%3E%3Ccircle cx='140' cy='40' r='10'/%3E%3Cpath d='M30 110c8 0 12 8 12 14s-4 12-12 12-14-6-14-12 6-14 14-14z'/%3E%3Cpath d='M100 90c10-2 18 6 16 16s-12 14-20 10-10-18 4-26z'/%3E%3Cpath d='M150 120l12 6-4 12-12-4z'/%3E%3Cpath d='M70 150c6-4 14-2 16 6s-2 14-10 14-14-6-12-12 2-6 6-8z'/%3E%3Cpath d='M20 70h16M28 62v16'/%3E%3Cpath d='M120 150c0-8 8-12 14-8s6 14-2 16-12-2-12-8z'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 180px 180px;
+  }
+
   .message--mine .message__bubble {
     background: var(--bg-message-own);
     border-bottom-right-radius: 4px;
@@ -123,8 +146,13 @@
 
   .chat-item--active .chat-item__title,
   .chat-item--active .chat-item__last-message,
-  .chat-item--active .chat-item__time {
-    color: #fff;
+  .chat-item--active .chat-item__time,
+  .chat-item--active .chat-item__status {
+    color: #fff !important;
+  }
+
+  .chat-item--active .chat-item__checks {
+    color: rgba(255, 255, 255, 0.85) !important;
   }
 
   .message-input__field textarea {
@@ -132,12 +160,12 @@
     border: none;
     background: none;
     color: var(--text-primary);
-    font-size: 14px;
+    font-size: 15px;
     font-family: inherit;
     resize: none;
     outline: none;
-    padding: 6px 0;
-    line-height: 1.4;
+    padding: 10px 0;
+    line-height: 1.35;
     max-height: 120px;
     overflow-y: auto;
   }
@@ -146,7 +174,30 @@
     color: var(--text-secondary);
   }
 
-  /* Responsive mobile */
+  .icon-btn {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, color 0.15s;
+    flex-shrink: 0;
+  }
+
+  .icon-btn:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+  }
+
+  @media (max-width: 900px) {
+    .folders-panel { display: none; }
+  }
+
   @media (max-width: 768px) {
     .sidebar-mobile-full { width: 100%; min-width: 100%; }
     .chat-area-mobile-hidden { display: none; }
