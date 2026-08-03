@@ -1,5 +1,6 @@
 import { type ChatPageVM } from '../../model/vm';
 import { IconSearch, IconMore, IconPanel } from '@/shared/ui/icons';
+import { IconButton } from '@/shared/ui/icon-button';
 
 interface ChatHeaderProps {
   vm: ChatPageVM;
@@ -17,15 +18,15 @@ export function ChatHeader(props: ChatHeaderProps) {
         </div>
       </div>
       <div class="flex items-center gap-0.5">
-        <button class="icon-btn" title="Поиск">
+        <IconButton title="Поиск">
           <IconSearch size={22} />
-        </button>
-        <button class="icon-btn" title="Панель">
+        </IconButton>
+        <IconButton title="Панель">
           <IconPanel size={22} />
-        </button>
-        <button class="icon-btn" title="Ещё">
+        </IconButton>
+        <IconButton title="Ещё">
           <IconMore size={22} />
-        </button>
+        </IconButton>
       </div>
     </div>
   );

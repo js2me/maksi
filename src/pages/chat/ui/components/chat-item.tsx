@@ -9,10 +9,12 @@ interface ChatItemProps {
 }
 
 export function ChatItem(props: ChatItemProps) {
+  const isActive = () => globals.stores.chat.activeChatId === props.chat.id;
+
   return (
     <div
       class={`flex items-center gap-3 px-3 py-2.25 cursor-pointer transition-colors duration-100 relative
-        ${globals.stores.chat.activeChatId === props.chat.id ? 'chat-item--active bg-surface-active' : 'hover:bg-surface-hover'}`}
+        ${isActive() ? 'chat-item--active bg-surface-active' : 'hover:bg-surface-hover'}`}
       onClick={() => globals.stores.chat.setActiveChat(props.chat.id)}
     >
       <Avatar
@@ -23,17 +25,17 @@ export function ChatItem(props: ChatItemProps) {
       />
       <div class="flex-1 min-w-0 flex flex-col gap-0.5">
         <div class="flex justify-between items-center gap-2">
-          <span class="chat-item__title text-sm-plus font-medium truncate">
+          <span class={`text-sm-plus font-medium truncate ${isActive() ? 'text-on-accent' : ''}`}>
             {props.chat.title}
           </span>
-          <span class="chat-item__time text-xs text-muted shrink-0 tabular-nums">
+          <span class={`text-xs shrink-0 tabular-nums ${isActive() ? 'text-on-accent' : 'text-muted'}`}>
             {props.chat.lastMessageTime}
           </span>
         </div>
         <div class="flex justify-between items-center gap-2">
           <div class="flex items-center gap-1 min-w-0 flex-1">
             <Show when={props.chat.lastMessageOutgoing}>
-              <span class="chat-item__checks text-checks shrink-0 inline-flex">
+              <span class={`shrink-0 inline-flex ${isActive() ? 'text-on-accent-muted' : 'text-checks'}`}>
                 <Show
                   when={props.chat.lastMessageStatus === 'sent'}
                   fallback={<IconChecks size={16} />}
@@ -42,7 +44,7 @@ export function ChatItem(props: ChatItemProps) {
                 </Show>
               </span>
             </Show>
-            <span class="chat-item__last-message text-sm text-muted truncate">
+            <span class={`text-sm truncate ${isActive() ? 'text-on-accent' : 'text-muted'}`}>
               {props.chat.lastMessage}
             </span>
           </div>
@@ -52,7 +54,7 @@ export function ChatItem(props: ChatItemProps) {
             </span>
           </Show>
           <Show when={props.chat.pinned && props.chat.unreadCount === 0}>
-            <span class="chat-item__status text-muted opacity-50 shrink-0">
+            <span class={`shrink-0 ${isActive() ? 'text-on-accent' : 'text-muted'} opacity-50`}>
               <IconPin size={14} />
             </span>
           </Show>

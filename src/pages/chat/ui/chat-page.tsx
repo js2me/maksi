@@ -15,7 +15,7 @@ export function ChatPage() {
     <div class="flex h-screen w-full overflow-hidden bg-primary">
       <FoldersNav vm={vm} />
 
-      <div class="sidebar-mobile-full w-sidebar min-w-[280px] max-w-[420px] flex flex-col overflow-hidden border-r border-border shrink-0">
+      <div class="sidebar-mobile-full w-sidebar min-w-70 max-w-sidebar flex flex-col overflow-hidden border-r border-border shrink-0">
         <SidebarHeader vm={vm} />
         <ChatList vm={vm} />
       </div>

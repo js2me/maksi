@@ -33,12 +33,14 @@ export function MessageBubble(props: MessageBubbleProps) {
         }
       >
         <div
-          class={`message flex px-px-msg py-0.5 ${
-            isMine() ? 'message--mine justify-end' : 'message--other justify-start'
-          }`}
+          class={`flex px-px-msg py-0.5 ${isMine() ? 'justify-end' : 'justify-start'}`}
         >
           <div class="flex flex-col max-w-bubble">
-            <div class="message__bubble px-2.5 pt-1.5 pb-1 rounded-bubble relative break-words shadow-[var(--message-bubble-shadow)]">
+            <div
+              class={`px-2.5 pt-1.5 pb-1 rounded-bubble relative wrap-break-word shadow-message-bubble ${
+                isMine() ? 'bg-msg-own rounded-br-sm' : 'bg-msg-other rounded-bl-sm'
+              }`}
+            >
               <Show when={props.showSender && !isMine()}>
                 <div class="flex items-baseline gap-1.5 mb-0.5 pr-1">
                   <span class="text-xs-plus font-semibold text-accent truncate">
@@ -57,7 +59,7 @@ export function MessageBubble(props: MessageBubbleProps) {
                 </div>
               </Show>
 
-              <div class="text-sm-plus leading-[1.35] whitespace-pre-wrap text-foreground">
+              <div class="text-sm-plus leading-message whitespace-pre-wrap text-foreground">
                 {props.message.text}
               </div>
 
@@ -75,7 +77,7 @@ export function MessageBubble(props: MessageBubbleProps) {
             </div>
 
             <Show when={props.message.actions?.length}>
-              <div class="flex flex-col gap-1.5 mt-1.5 min-w-[240px]">
+              <div class="flex flex-col gap-1.5 mt-1.5 min-w-60">
                 <For each={props.message.actions}>
                   {(action) => (
                     <button

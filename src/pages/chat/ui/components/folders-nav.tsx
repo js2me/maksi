@@ -53,12 +53,12 @@ export function FoldersNav(props: FoldersNavProps) {
                 title={folder.title}
               >
                 <Show when={active()}>
-                  <span class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-8 rounded-r-full bg-folders-active" />
+                  <span class="absolute left-0 top-1/2 -translate-y-1/2 w-0.75 h-8 rounded-r-full bg-folders-active" />
                 </Show>
                 <div class="relative">
                   <FolderIcon icon={folder.icon} />
                   {(folder.unreadCount ?? 0) > 0 && (
-                    <span class="absolute -top-1.5 -right-2.5 min-w-[16px] h-4 px-1 rounded-full bg-danger text-on-accent text-3xs font-semibold flex items-center justify-center leading-none">
+                    <span class="absolute -top-1.5 -right-2.5 min-w-4 h-4 px-1 rounded-full bg-danger text-on-accent text-3xs font-semibold flex items-center justify-center leading-none">
                       {folder.unreadCount}
                     </span>
                   )}

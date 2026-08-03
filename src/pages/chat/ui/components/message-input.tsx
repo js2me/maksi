@@ -1,6 +1,7 @@
 import { Show } from 'solid-js';
 import { type ChatPageVM } from '../../model/vm';
 import { IconAttach, IconEmoji, IconMic, IconSticker, IconSend } from '@/shared/ui/icons';
+import { IconButton } from '@/shared/ui/icon-button';
 
 interface MessageInputProps {
   vm: ChatPageVM;
@@ -9,12 +10,13 @@ interface MessageInputProps {
 export function MessageInput(props: MessageInputProps) {
   return (
     <div class="flex items-end gap-0.5 px-2 py-1.5 bg-primary border-t border-border shrink-0">
-      <button class="icon-btn" title="Прикрепить">
+      <IconButton title="Прикрепить">
         <IconAttach size={22} />
-      </button>
+      </IconButton>
 
-      <div class="message-input__field flex-1 flex items-center min-w-0">
+      <div class="flex-1 flex items-center min-w-0">
         <textarea
+          class="w-full text-sm-plus resize-none outline-none py-2.5 px-0 leading-message max-h-30 overflow-y-auto placeholder:text-muted"
           value={props.vm.inputText}
           onInput={(e) => props.vm.setInputText(e.currentTarget.value)}
           onKeyDown={(e) => props.vm.handleKeyDown(e)}
@@ -23,28 +25,28 @@ export function MessageInput(props: MessageInputProps) {
         />
       </div>
 
-      <button class="icon-btn" title="Стикеры">
+      <IconButton title="Стикеры">
         <IconSticker size={22} />
-      </button>
-      <button class="icon-btn" title="Эмодзи">
+      </IconButton>
+      <IconButton title="Эмодзи">
         <IconEmoji size={22} />
-      </button>
+      </IconButton>
 
       <Show
         when={props.vm.canSend}
         fallback={
-          <button class="icon-btn" title="Голосовое сообщение">
+          <IconButton title="Голосовое сообщение">
             <IconMic size={22} />
-          </button>
+          </IconButton>
         }
       >
-        <button
-          class="icon-btn text-brand hover:text-brand-hover"
-          onClick={() => props.vm.sendMessage()}
+        <IconButton
           title="Отправить"
+          onClick={() => props.vm.sendMessage()}
+          colorClass="text-brand hover:text-brand-hover"
         >
           <IconSend size={22} />
-        </button>
+        </IconButton>
       </Show>
     </div>
   );
