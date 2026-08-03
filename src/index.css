@@ -29,10 +29,18 @@
   --color-chat-pattern: var(--chat-pattern);
   --color-date-pill: var(--date-pill);
   --color-checks: var(--checks);
+  --color-on-accent: var(--on-accent);
+  --color-on-accent-muted: var(--on-accent-muted);
+  --color-danger: var(--danger);
+  --color-overlay: var(--overlay);
+  --color-system-msg: var(--system-msg);
+  --color-folders-hover: var(--folders-hover);
+  --color-folders-text-hover: var(--folders-text-hover);
 
-  --font-size-2xs: 0.6875rem;
-  --font-size-xs-plus: 0.8125rem;
-  --font-size-sm-plus: 0.9375rem;
+  --text-3xs: 0.625rem;
+  --text-2xs: 0.6875rem;
+  --text-xs-plus: 0.8125rem;
+  --text-sm-plus: 0.9375rem;
 
   --spacing-folders: 4.75rem;
   --spacing-sidebar: 26.25rem;
@@ -74,6 +82,13 @@
   --chat-pattern: rgba(0, 0, 0, 0.045);
   --date-pill: rgba(0, 0, 0, 0.25);
   --checks: #4fae4e;
+  --on-accent: #ffffff;
+  --on-accent-muted: rgba(255, 255, 255, 0.85);
+  --danger: #e53935;
+  --overlay: rgba(0, 0, 0, 0.25);
+  --system-msg: rgba(0, 0, 0, 0.1);
+  --folders-hover: rgba(255, 255, 255, 0.05);
+  --folders-text-hover: rgba(255, 255, 255, 0.8);
   --message-bubble-shadow: 0 1px 2px rgba(16, 35, 47, 0.12);
   color-scheme: light;
 }
@@ -106,6 +121,13 @@
   --chat-pattern: rgba(255, 255, 255, 0.03);
   --date-pill: rgba(0, 0, 0, 0.35);
   --checks: #6ab3f3;
+  --on-accent: #ffffff;
+  --on-accent-muted: rgba(255, 255, 255, 0.85);
+  --danger: #e53935;
+  --overlay: rgba(0, 0, 0, 0.25);
+  --system-msg: rgba(255, 255, 255, 0.1);
+  --folders-hover: rgba(255, 255, 255, 0.05);
+  --folders-text-hover: rgba(255, 255, 255, 0.8);
   --message-bubble-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
   color-scheme: dark;
 }
@@ -148,11 +170,11 @@
   .chat-item--active .chat-item__last-message,
   .chat-item--active .chat-item__time,
   .chat-item--active .chat-item__status {
-    color: #fff !important;
+    color: var(--on-accent) !important;
   }
 
   .chat-item--active .chat-item__checks {
-    color: rgba(255, 255, 255, 0.85) !important;
+    color: var(--on-accent-muted) !important;
   }
 
   .message-input__field textarea {

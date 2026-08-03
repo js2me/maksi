@@ -33,7 +33,7 @@ export function FoldersNav(props: FoldersNavProps) {
     <aside class="folders-panel w-folders min-w-folders bg-folders flex flex-col items-stretch overflow-hidden shrink-0 select-none">
       <div class="flex justify-center pt-3 pb-2">
         <button
-          class="w-10 h-10 border-none bg-transparent text-folders-text cursor-pointer rounded-full flex items-center justify-center hover:bg-white/5"
+          class="w-10 h-10 border-none bg-transparent text-folders-text cursor-pointer rounded-full flex items-center justify-center hover:bg-folders-hover"
           title="Меню"
           onClick={() => props.vm.toggleTheme()}
         >
@@ -48,7 +48,7 @@ export function FoldersNav(props: FoldersNavProps) {
             return (
               <button
                 class={`w-full border-none bg-transparent cursor-pointer flex flex-col items-center gap-1 px-1 py-2.5 transition-colors relative
-                  ${active() ? 'text-folders-active' : 'text-folders-text hover:text-white/80'}`}
+                  ${active() ? 'text-folders-active' : 'text-folders-text hover:text-folders-text-hover'}`}
                 onClick={() => props.vm.setCategory(folder.id)}
                 title={folder.title}
               >
@@ -58,12 +58,12 @@ export function FoldersNav(props: FoldersNavProps) {
                 <div class="relative">
                   <FolderIcon icon={folder.icon} />
                   {(folder.unreadCount ?? 0) > 0 && (
-                    <span class="absolute -top-1.5 -right-2.5 min-w-[16px] h-4 px-1 rounded-full bg-[#e53935] text-white text-[10px] font-semibold flex items-center justify-center leading-none">
+                    <span class="absolute -top-1.5 -right-2.5 min-w-[16px] h-4 px-1 rounded-full bg-danger text-on-accent text-3xs font-semibold flex items-center justify-center leading-none">
                       {folder.unreadCount}
                     </span>
                   )}
                 </div>
-                <span class="text-[11px] leading-tight text-center max-w-full truncate px-0.5">
+                <span class="text-2xs leading-tight text-center max-w-full truncate px-0.5">
                   {folder.title}
                 </span>
               </button>
@@ -74,11 +74,11 @@ export function FoldersNav(props: FoldersNavProps) {
 
       <div class="flex justify-center py-3">
         <button
-          class="border-none bg-transparent text-folders-text cursor-pointer flex flex-col items-center gap-1 hover:text-white/80"
+          class="border-none bg-transparent text-folders-text cursor-pointer flex flex-col items-center gap-1 hover:text-folders-text-hover"
           title="Редактировать"
         >
           <IconEdit size={22} />
-          <span class="text-[11px]">Ред.</span>
+          <span class="text-2xs">Ред.</span>
         </button>
       </div>
     </aside>

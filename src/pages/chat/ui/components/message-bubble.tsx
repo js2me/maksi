@@ -16,7 +16,7 @@ export function MessageBubble(props: MessageBubbleProps) {
     <>
       <Show when={props.showDate && props.message.date}>
         <div class="flex justify-center py-2">
-          <span class="px-3 py-1 rounded-full text-[13px] font-medium text-white bg-[color:var(--date-pill)] shadow-sm">
+          <span class="px-3 py-1 rounded-full text-xs-plus font-medium text-on-accent bg-date-pill shadow-sm">
             {props.message.date}
           </span>
         </div>
@@ -26,7 +26,7 @@ export function MessageBubble(props: MessageBubbleProps) {
         when={!isSystem()}
         fallback={
           <div class="flex justify-center px-4 py-1">
-            <span class="text-[13px] text-muted bg-black/10 dark:bg-white/10 px-3 py-1 rounded-full">
+            <span class="text-xs-plus text-muted bg-system-msg px-3 py-1 rounded-full">
               {props.message.text}
             </span>
           </div>
@@ -41,28 +41,28 @@ export function MessageBubble(props: MessageBubbleProps) {
             <div class="message__bubble px-2.5 pt-1.5 pb-1 rounded-bubble relative break-words shadow-[var(--message-bubble-shadow)]">
               <Show when={props.showSender && !isMine()}>
                 <div class="flex items-baseline gap-1.5 mb-0.5 pr-1">
-                  <span class="text-[13px] font-semibold text-accent truncate">
+                  <span class="text-xs-plus font-semibold text-accent truncate">
                     {props.message.senderName}
                   </span>
                   <Show when={props.message.senderRole}>
-                    <span class="text-[12px] text-muted shrink-0">
+                    <span class="text-xs text-muted shrink-0">
                       {props.message.senderRole}
                     </span>
                   </Show>
                   <Show when={props.message.showReplyLink}>
-                    <button class="ml-auto border-none bg-transparent text-accent text-[13px] cursor-pointer p-0 hover:underline shrink-0">
+                    <button class="ml-auto border-none bg-transparent text-accent text-xs-plus cursor-pointer p-0 hover:underline shrink-0">
                       Ответить
                     </button>
                   </Show>
                 </div>
               </Show>
 
-              <div class="text-[15px] leading-[1.35] whitespace-pre-wrap text-foreground">
+              <div class="text-sm-plus leading-[1.35] whitespace-pre-wrap text-foreground">
                 {props.message.text}
               </div>
 
               <div class="flex items-center justify-end gap-1 mt-0.5 float-right ml-3 relative top-0.5">
-                <span class="text-[12px] text-muted opacity-80 tabular-nums leading-none">
+                <span class="text-xs text-muted opacity-80 tabular-nums leading-none">
                   {props.message.time}
                 </span>
                 <Show when={isMine()}>
@@ -79,7 +79,7 @@ export function MessageBubble(props: MessageBubbleProps) {
                 <For each={props.message.actions}>
                   {(action) => (
                     <button
-                      class="w-full border-none rounded-lg py-2.5 px-3 text-[14px] font-medium text-white cursor-pointer
+                      class="w-full border-none rounded-lg py-2.5 px-3 text-sm font-medium text-on-accent cursor-pointer
                         bg-action-btn hover:bg-action-btn-hover transition-colors"
                     >
                       {action.label}

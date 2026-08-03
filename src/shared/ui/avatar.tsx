@@ -10,7 +10,7 @@ export function Avatar(props: AvatarProps) {
 
   return (
     <div
-      class="relative shrink-0 rounded-full flex items-center justify-center text-white font-medium select-none"
+      class="relative shrink-0 rounded-full flex items-center justify-center text-on-accent font-medium select-none"
       style={{
         width: `${size()}px`,
         height: `${size()}px`,
