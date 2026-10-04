@@ -1,13 +1,9 @@
-import { makeAutoObservable, observable } from 'mobx';
+import { observable } from 'mobx';
 import { type Message } from './types';
 import { mockMessages } from './mock-data';
 
 export class MessageStore {
-  messages = mockMessages;
-
-  constructor() {
-    makeAutoObservable(this, { messages: observable.ref });
-  }
+  @observable.ref accessor messages = mockMessages;
 
   getMessagesForChat(chatId: string): Message[] {
     return this.messages.get(chatId) ?? [];

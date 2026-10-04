@@ -1,0 +1,5 @@
+allowBuilds:
+  '@swc/core': set this to true or false
+minimumReleaseAgeExclude:
+  - mobx-view-model-solid@0.0.2
+  - mobx-view-model@11.0.0

@@ -11,17 +11,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@swc/helpers": "^0.5.23",
     "@tailwindcss/vite": "^4.3.3",
     "mobx": "^6.16.1",
-    "mobx-solid": "^0.0.3",
+    "mobx-solid": "^0.3.1",
+    "mobx-view-model": "^11.0.0",
+    "mobx-view-model-solid": "^0.0.2",
     "mobx-web-api": "^1.14.1",
-    "solid-js": "^1.9.14",
+    "solid-js": "1.9.15",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "@types/node": "^24.13.3",
+    "swc-decorators-plugin": "^0.1.0",
     "typescript": "~6.0.2",
     "vite": "^8.2.0",
-    "vite-plugin-solid": "^2.11.13"
+    "vite-plugin-solid": "^2.11.14"
   }
 }

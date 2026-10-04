@@ -1,4 +1,3 @@
-import { enableObservableTracking } from 'mobx-solid';
+import { enableObservableTracking } from 'mobx-view-model-solid';
 
 enableObservableTracking();
-

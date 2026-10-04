@@ -1,14 +1,12 @@
-import { makeAutoObservable, reaction } from 'mobx';
+import { action, computed, observable, reaction } from 'mobx';
 import { colorScheme } from 'mobx-web-api';
 
 export type ThemePreference = 'light' | 'dark' | 'system';
 
 export class ThemeManager {
-  preference: ThemePreference = 'system';
+  @observable accessor preference: ThemePreference = 'system';
 
   constructor() {
-    makeAutoObservable(this);
-
     const saved = localStorage.getItem('theme-preference') as ThemePreference | null;
     if (saved && ['light', 'dark', 'system'].includes(saved)) {
       this.preference = saved;
@@ -21,17 +19,20 @@ export class ThemeManager {
     );
   }
 
+  @computed
   get isDark(): boolean {
     if (this.preference === 'dark') return true;
     if (this.preference === 'light') return false;
     return colorScheme.isDark;
   }
 
+  @action
   setPreference(preference: ThemePreference) {
     this.preference = preference;
     localStorage.setItem('theme-preference', preference);
   }
 
+  @action
   private syncDom() {
     if (typeof document === 'undefined') return;
 

@@ -1,22 +1,23 @@
-import { makeAutoObservable } from 'mobx';
+import { action, observable } from 'mobx';
 import { type ChatStore } from '@/entities/chat/model/store';
 import { type MessageStore } from '@/entities/message/model/store';
 
 export class SendMessageStore {
-  text: string = '';
-  chatStore: ChatStore;
-  messageStore: MessageStore;
+  @observable accessor text = '';
+  readonly chatStore: ChatStore;
+  readonly messageStore: MessageStore;
 
   constructor(chatStore: ChatStore, messageStore: MessageStore) {
     this.chatStore = chatStore;
     this.messageStore = messageStore;
-    makeAutoObservable(this, { chatStore: false, messageStore: false });
   }
 
+  @action
   setText(text: string) {
     this.text = text;
   }
 
+  @action
   send() {
     const chatId = this.chatStore.activeChatId;
     if (!chatId || !this.text.trim()) return;

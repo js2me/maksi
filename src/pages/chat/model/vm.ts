@@ -1,45 +1,53 @@
-import { makeAutoObservable } from 'mobx';
+import { computed } from 'mobx';
+import { ViewModelBase, type ViewModelParams } from 'mobx-view-model';
 import { globals } from '@/globals';
 import { SendMessageStore } from '@/features/send-message/model/store';
 import { type Message } from '@/entities/message/model/types';
 import { type ThemePreference } from '@/globals/stores/theme-manager';
 import { type ChatCategory } from '@/entities/chat/model/types';
 
-export class ChatPageVM {
-  sendMessageStore: SendMessageStore;
+export class ChatPageVM extends ViewModelBase {
+  readonly sendMessageStore: SendMessageStore;
 
-  constructor() {
+  constructor(params: ViewModelParams) {
+    super(params);
     this.sendMessageStore = new SendMessageStore(
       globals.stores.chat,
       globals.stores.message,
     );
-    makeAutoObservable(this, { sendMessageStore: false });
   }
 
+  @computed
   get isChatSelected(): boolean {
     return globals.stores.chat.activeChatId !== null;
   }
 
+  @computed
   get chatTitle(): string {
     return globals.stores.chat.activeChat?.title ?? '';
   }
 
+  @computed
   get chatAvatar(): string {
     return globals.stores.chat.activeChat?.avatar ?? '';
   }
 
+  @computed
   get chatAvatarColor(): string {
     return globals.stores.chat.activeChat?.avatarColor ?? '#64B5F6';
   }
 
+  @computed
   get chatOnline(): boolean {
     return globals.stores.chat.activeChat?.online ?? false;
   }
 
+  @computed
   get chatType(): 'private' | 'group' | 'channel' {
     return globals.stores.chat.activeChat?.type ?? 'private';
   }
 
+  @computed
   get chatStatusText(): string {
     const chat = globals.stores.chat.activeChat;
     if (!chat) return '';
@@ -58,14 +66,17 @@ export class ChatPageVM {
     return 'был(а) недавно';
   }
 
+  @computed
   get category(): ChatCategory {
     return globals.stores.chat.category;
   }
 
+  @computed
   get folders() {
     return globals.stores.chat.folders;
   }
 
+  @computed
   get searchOpen(): boolean {
     return globals.stores.chat.searchOpen;
   }
@@ -74,10 +85,12 @@ export class ChatPageVM {
     globals.stores.chat.setCategory(category);
   }
 
+  @computed
   get filteredChats() {
     return globals.stores.chat.filteredChats;
   }
 
+  @computed
   get messages(): Message[] {
     const chatId = globals.stores.chat.activeChatId;
     return chatId
@@ -85,22 +98,27 @@ export class ChatPageVM {
       : [];
   }
 
+  @computed
   get inputText(): string {
     return this.sendMessageStore.text;
   }
 
+  @computed
   get canSend(): boolean {
     return this.sendMessageStore.text.trim().length > 0;
   }
 
+  @computed
   get searchQuery(): string {
     return globals.stores.chat.searchQuery;
   }
 
+  @computed
   get isDark() {
     return globals.stores.theme.isDark;
   }
 
+  @computed
   get themePreference() {
     return globals.stores.theme.preference;
   }

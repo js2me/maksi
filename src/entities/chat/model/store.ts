@@ -1,16 +1,15 @@
-import { makeAutoObservable } from 'mobx';
+import { action, computed, observable } from 'mobx';
 import { type Chat, type ChatCategory } from './types';
 import { mockChats, chatFolders } from './mock-data';
 
 export class ChatStore {
-  chats: Chat[] = [];
-  activeChatId: string | null = 'v3915';
-  searchQuery: string = '';
-  category: ChatCategory = 'all';
-  searchOpen = false;
+  @observable accessor chats: Chat[] = [];
+  @observable accessor activeChatId: string | null = 'v3915';
+  @observable accessor searchQuery = '';
+  @observable accessor category: ChatCategory = 'all';
+  @observable accessor searchOpen = false;
 
   constructor() {
-    makeAutoObservable(this);
     this.chats = mockChats;
   }
 
@@ -18,6 +17,7 @@ export class ChatStore {
     return chatFolders;
   }
 
+  @computed
   get filteredChats(): Chat[] {
     let result = this.chats;
 
@@ -37,14 +37,17 @@ export class ChatStore {
     return result;
   }
 
+  @computed
   get activeChat(): Chat | undefined {
     return this.chats.find((c) => c.id === this.activeChatId);
   }
 
+  @computed
   get totalUnread(): number {
     return this.chats.reduce((sum, c) => sum + c.unreadCount, 0);
   }
 
+  @action
   setActiveChat(id: string) {
     this.activeChatId = id;
     const chat = this.chats.find((c) => c.id === id);
@@ -53,19 +56,23 @@ export class ChatStore {
     }
   }
 
+  @action
   setSearchQuery(query: string) {
     this.searchQuery = query;
   }
 
+  @action
   setSearchOpen(open: boolean) {
     this.searchOpen = open;
     if (!open) this.searchQuery = '';
   }
 
+  @action
   setCategory(category: ChatCategory) {
     this.category = category;
   }
 
+  @action
   updateLastMessage(
     chatId: string,
     text: string,
@@ -81,6 +88,7 @@ export class ChatStore {
     }
   }
 
+  @action
   incrementUnread(chatId: string) {
     const chat = this.chats.find((c) => c.id === chatId);
     if (chat) {

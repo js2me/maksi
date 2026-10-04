@@ -1,4 +1,5 @@
 import { Show } from 'solid-js';
+import { useCreateViewModel } from 'mobx-view-model-solid';
 import { ChatPageVM } from '../model/vm';
 import { FoldersNav } from './components/folders-nav';
 import { SidebarHeader } from './components/sidebar-header';
@@ -9,7 +10,7 @@ import { MessageInput } from './components/message-input';
 import { EmptyState } from './components/empty-state';
 
 export function ChatPage() {
-  const vm = new ChatPageVM();
+  const vm = useCreateViewModel(ChatPageVM);
 
   return (
     <div class="flex h-screen w-full overflow-hidden bg-primary">
