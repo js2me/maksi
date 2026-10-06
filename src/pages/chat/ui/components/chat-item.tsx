@@ -9,6 +9,7 @@ interface ChatItemProps {
 }
 
 export function ChatItem(props: ChatItemProps) {
+  console.log('dddd', globals.stores.chat.activeChatId);
   const isActive = () => globals.stores.chat.activeChatId === props.chat.id;
 
   return (
@@ -54,7 +55,7 @@ export function ChatItem(props: ChatItemProps) {
             </span>
           </Show>
           <Show when={props.chat.pinned && props.chat.unreadCount === 0}>
-            <span class={`shrink-0 ${isActive() ? 'text-on-accent' : 'text-muted'} opacity-50`}>
+              <span class={`shrink-0 ${isActive() ? 'text-on-accent' : 'text-muted'} opacity-50`}>
               <IconPin size={14} />
             </span>
           </Show>

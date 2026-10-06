@@ -1,17 +1,15 @@
 import { For, createEffect } from 'solid-js';
-import { type ChatPageVM } from '../../model/vm';
+import { useViewModel } from 'mobx-view-model-solid';
+import { ChatPageVM } from '../../model/vm';
 import { MessageBubble } from './message-bubble';
 
-interface MessageListProps {
-  vm: ChatPageVM;
-}
-
-export function MessageList(props: MessageListProps) {
+export function MessageList() {
+  const vm = useViewModel(ChatPageVM);
   let container!: HTMLDivElement;
 
   createEffect(() => {
-    const len = props.vm.messages.length;
-    const title = props.vm.chatTitle;
+    const len = vm.messages.length;
+    const title = vm.chatTitle;
     void len;
     void title;
     requestAnimationFrame(() => {
@@ -24,12 +22,12 @@ export function MessageList(props: MessageListProps) {
       ref={container}
       class="flex-1 overflow-y-auto py-3 flex flex-col gap-1 chat-wallpaper"
     >
-      <For each={props.vm.messages}>
+      <For each={vm.messages}>
         {(msg, index) => (
           <MessageBubble
             message={msg}
-            showSender={props.vm.shouldShowSender(msg, index())}
-            showDate={props.vm.shouldShowDate(msg, index())}
+            showSender={vm.shouldShowSender(msg, index())}
+            showDate={vm.shouldShowDate(msg, index())}
           />
         )}
       </For>

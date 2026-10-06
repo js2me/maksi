@@ -1,23 +1,22 @@
 import { Show } from 'solid-js';
+import { useViewModel } from 'mobx-view-model-solid';
 import logoUrl from '@/assets/logo.png';
-import { type ChatPageVM } from '../../model/vm';
+import { ChatPageVM } from '../../model/vm';
 import { IconSearch, IconMore, IconBack } from '@/shared/ui/icons';
 import { IconButton } from '@/shared/ui/icon-button';
 
-interface SidebarHeaderProps {
-  vm: ChatPageVM;
-}
+export function SidebarHeader() {
+  const vm = useViewModel(ChatPageVM);
 
-export function SidebarHeader(props: SidebarHeaderProps) {
   return (
     <div class="bg-primary border-b border-border shrink-0">
       <Show
-        when={props.vm.searchOpen}
+        when={vm.searchOpen}
         fallback={
           <div class="flex items-center h-14 px-2 gap-1">
             <IconButton
               title="Поиск"
-              onClick={() => props.vm.toggleSearch()}
+              onClick={() => vm.toggleSearch()}
             >
               <IconSearch size={22} />
             </IconButton>
@@ -38,7 +37,7 @@ export function SidebarHeader(props: SidebarHeaderProps) {
         <div class="flex items-center h-14 px-2 gap-2">
           <IconButton
             title="Назад"
-            onClick={() => props.vm.toggleSearch()}
+            onClick={() => vm.toggleSearch()}
           >
             <IconBack size={22} />
           </IconButton>
@@ -46,8 +45,8 @@ export function SidebarHeader(props: SidebarHeaderProps) {
             type="text"
             class="flex-1 h-9 border-none bg-surface-hover rounded-full px-4 text-sm outline-none placeholder:text-muted"
             placeholder="Поиск"
-            value={props.vm.searchQuery}
-            onInput={(e) => props.vm.setSearchQuery(e.currentTarget.value)}
+            value={vm.searchQuery}
+            onInput={(e) => vm.setSearchQuery(e.currentTarget.value)}
             autofocus
           />
         </div>

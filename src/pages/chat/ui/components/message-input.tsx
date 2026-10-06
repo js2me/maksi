@@ -1,13 +1,12 @@
 import { Show } from 'solid-js';
-import { type ChatPageVM } from '../../model/vm';
+import { useViewModel } from 'mobx-view-model-solid';
+import { ChatPageVM } from '../../model/vm';
 import { IconAttach, IconEmoji, IconMic, IconSticker, IconSend } from '@/shared/ui/icons';
 import { IconButton } from '@/shared/ui/icon-button';
 
-interface MessageInputProps {
-  vm: ChatPageVM;
-}
+export function MessageInput() {
+  const vm = useViewModel(ChatPageVM);
 
-export function MessageInput(props: MessageInputProps) {
   return (
     <div class="flex items-end gap-0.5 px-2 py-1.5 bg-primary border-t border-border shrink-0">
       <IconButton title="Прикрепить">
@@ -17,9 +16,9 @@ export function MessageInput(props: MessageInputProps) {
       <div class="flex-1 flex items-center min-w-0">
         <textarea
           class="w-full text-sm-plus resize-none outline-none py-2.5 px-0 leading-message max-h-30 overflow-y-auto placeholder:text-muted"
-          value={props.vm.inputText}
-          onInput={(e) => props.vm.setInputText(e.currentTarget.value)}
-          onKeyDown={(e) => props.vm.handleKeyDown(e)}
+          value={vm.inputText}
+          onInput={(e) => vm.setInputText(e.currentTarget.value)}
+          onKeyDown={(e) => vm.handleKeyDown(e)}
           placeholder="Сообщение..."
           rows={1}
         />
@@ -33,7 +32,7 @@ export function MessageInput(props: MessageInputProps) {
       </IconButton>
 
       <Show
-        when={props.vm.canSend}
+        when={vm.canSend}
         fallback={
           <IconButton title="Голосовое сообщение">
             <IconMic size={22} />
@@ -42,7 +41,7 @@ export function MessageInput(props: MessageInputProps) {
       >
         <IconButton
           title="Отправить"
-          onClick={() => props.vm.sendMessage()}
+          onClick={() => vm.sendMessage()}
           colorClass="text-brand hover:text-brand-hover"
         >
           <IconSend size={22} />

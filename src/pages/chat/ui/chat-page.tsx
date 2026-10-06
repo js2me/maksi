@@ -1,5 +1,5 @@
 import { Show } from 'solid-js';
-import { useCreateViewModel } from 'mobx-view-model-solid';
+import { withViewModel } from 'mobx-view-model-solid';
 import { ChatPageVM } from '../model/vm';
 import { FoldersNav } from './components/folders-nav';
 import { SidebarHeader } from './components/sidebar-header';
@@ -9,25 +9,23 @@ import { MessageList } from './components/message-list';
 import { MessageInput } from './components/message-input';
 import { EmptyState } from './components/empty-state';
 
-export function ChatPage() {
-  const vm = useCreateViewModel(ChatPageVM);
-
+export const ChatPage = withViewModel(ChatPageVM, ({ model }) => {
   return (
     <div class="flex h-screen w-full overflow-hidden bg-primary">
-      <FoldersNav vm={vm} />
+      <FoldersNav />
 
       <div class="sidebar-mobile-full w-sidebar min-w-70 max-w-sidebar flex flex-col overflow-hidden border-r border-border shrink-0">
-        <SidebarHeader vm={vm} />
-        <ChatList vm={vm} />
+        <SidebarHeader />
+        <ChatList />
       </div>
 
       <div class="chat-area-mobile-hidden flex-1 flex flex-col min-w-0">
-        <Show when={() => vm.isChatSelected} fallback={<EmptyState />}>
-          <ChatHeader vm={vm} />
-          <MessageList vm={vm} />
-          <MessageInput vm={vm} />
+        <Show when={() => model.isChatSelected} fallback={<EmptyState />}>
+          <ChatHeader />
+          <MessageList />
+          <MessageInput />
         </Show>
       </div>
     </div>
   );
-}
+});

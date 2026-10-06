@@ -1,5 +1,6 @@
 import { For, Show } from 'solid-js';
-import { type ChatPageVM } from '../../model/vm';
+import { useViewModel } from 'mobx-view-model-solid';
+import { ChatPageVM } from '../../model/vm';
 import {
   IconMenu,
   IconChats,
@@ -9,10 +10,6 @@ import {
   IconEdit,
 } from '@/shared/ui/icons';
 import { type ChatFolder } from '@/entities/chat/model/types';
-
-interface FoldersNavProps {
-  vm: ChatPageVM;
-}
 
 function FolderIcon(props: { icon: ChatFolder['icon']; class?: string }) {
   const size = 26;
@@ -28,28 +25,30 @@ function FolderIcon(props: { icon: ChatFolder['icon']; class?: string }) {
   }
 }
 
-export function FoldersNav(props: FoldersNavProps) {
+export function FoldersNav() {
+  const vm = useViewModel(ChatPageVM);
+
   return (
     <aside class="folders-panel w-folders min-w-folders bg-folders flex flex-col items-stretch overflow-hidden shrink-0 select-none">
       <div class="flex justify-center pt-3 pb-2">
         <button
           class="w-10 h-10 border-none bg-transparent text-folders-text cursor-pointer rounded-full flex items-center justify-center hover:bg-folders-hover"
           title="Меню"
-          onClick={() => props.vm.toggleTheme()}
+          onClick={() => vm.toggleTheme()}
         >
           <IconMenu size={22} />
         </button>
       </div>
 
       <nav class="flex-1 overflow-y-auto overflow-x-hidden py-1">
-        <For each={props.vm.folders}>
+        <For each={vm.folders}>
           {(folder) => {
-            const active = () => props.vm.category === folder.id;
+            const active = () => vm.category === folder.id;
             return (
               <button
                 class={`w-full border-none bg-transparent cursor-pointer flex flex-col items-center gap-1 px-1 py-2.5 transition-colors relative
                   ${active() ? 'text-folders-active' : 'text-folders-text hover:text-folders-text-hover'}`}
-                onClick={() => props.vm.setCategory(folder.id)}
+                onClick={() => vm.setCategory(folder.id)}
                 title={folder.title}
               >
                 <Show when={active()}>
